@@ -1,8 +1,7 @@
 package servlets;
 
-import accounts.AccountService;
-import accounts.UserProfile;
-import com.google.gson.Gson;
+import BaseLogic.AccountService;
+import dataSets.UserDataSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,15 +27,15 @@ public class SignInServlet extends HttpServlet {
             return;
         }
 
-        UserProfile userProfile = accountService.getUserByLogin(login);
+        UserDataSet userDataSet = accountService.getUser(login);
 
-        if (userProfile == null || !userProfile.getPassword().equals(password)){
+        if (userDataSet == null || !userDataSet.getPassword().equals(password)){
             response.setContentType(setContentTypeText());
             response.getWriter().println("Unauthorized");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
             response.setContentType(setContentTypeText());
-            response.getWriter().println("Authorized: " + login);
+            response.sendRedirect("/chat.html");
             response.setStatus(HttpServletResponse.SC_OK);
         }
 

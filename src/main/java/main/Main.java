@@ -1,7 +1,8 @@
 package main;
 
 
-import accounts.AccountService;
+import BaseLogic.AccountService;
+import accounts.AccountServiceImpl;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -10,14 +11,16 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import servlets.SignInServlet;
 import servlets.SignUpServlet;
+import servlets.WebSocketChatServlet;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        AccountService accountService = new AccountService();
+        AccountService accountService = new AccountServiceImpl();
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
         context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
+        context.addServlet(new ServletHolder(new WebSocketChatServlet()), "/chat");
 
         ResourceHandler resourceHandler = new ResourceHandler();
         resourceHandler.setResourceBase("public_html");

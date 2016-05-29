@@ -18,24 +18,24 @@ class PageGenerator {
     private final Configuration cfg;
 
     public static PageGenerator getInstance() {
-        if (pageGenerator == null){
+        if (pageGenerator == null) {
             pageGenerator = new PageGenerator();
         }
         return pageGenerator;
     }
 
-    public String getPage(String fileName, Map<String, Object> data){
+    public String getPage(String fileName, Map<String, Object> data) {
         Writer stream = new StringWriter();
         try {
             Template template = cfg.getTemplate(HTML_DIR + File.separator + fileName);
             template.process(data, stream);
-        } catch (IOException | TemplateException e){
+        } catch (IOException | TemplateException e) {
             e.printStackTrace();
         }
         return stream.toString();
     }
 
-    private PageGenerator(){
+    private PageGenerator() {
         cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
     }
 

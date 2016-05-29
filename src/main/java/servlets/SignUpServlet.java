@@ -1,7 +1,7 @@
 package servlets;
 
-import accounts.AccountService;
-import accounts.UserProfile;
+import BaseLogic.AccountService;
+import dataSets.UserDataSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,14 +21,20 @@ public class SignUpServlet extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        if (login == null || password == null){
+        if (login == null || password == null) {
             response.setContentType(setContentTypeText());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-
-        accountService.addNewUser(new UserProfile(login, password, "email"));
-
+        UserDataSet userDataSet = accountService.getUser(login);
+        if (userDataSet != null) {
+            response.setContentType(setContentTypeText());
+            response.getWriter().println("<html><body>Пользователь с таким именем существует!</body></html>");
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            accountService.addUser(new UserDataSet(login, password));
+            response.sendRedirect("/chat.html");
+        }
 
 
     }
