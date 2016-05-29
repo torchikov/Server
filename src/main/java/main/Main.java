@@ -1,7 +1,7 @@
 package main;
 
 
-import BaseLogic.AccountService;
+import baseLogic.AccountService;
 import accounts.AccountServiceImpl;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;

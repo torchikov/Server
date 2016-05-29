@@ -1,6 +1,6 @@
 package servlets;
 
-import BaseLogic.ChatService;
+import baseLogic.ChatService;
 import chat.ChatServiceImp;
 import chat.ChatWebSocket;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;

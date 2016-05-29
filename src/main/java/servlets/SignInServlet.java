@@ -1,6 +1,6 @@
 package servlets;
 
-import BaseLogic.AccountService;
+import baseLogic.AccountService;
 import dataSets.UserDataSet;
 
 import javax.servlet.ServletException;

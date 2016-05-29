@@ -1,27 +1,26 @@
 package accounts;
 
 
-import BaseLogic.AccountService;
+import baseLogic.AccountService;
+import baseLogic.DBService;
 import dao.UserDao;
 import dataSets.UserDataSet;
+import db.DBServiceImpl;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 public class AccountServiceImpl implements AccountService {
 
+    private DBService dbService;
 
-    private final SessionFactory sessionFactory;
 
     public AccountServiceImpl() {
-        Configuration configuration = getMySqlConfiguration();
-        sessionFactory = createSessionFactory(configuration);
+        dbService = new DBServiceImpl();
     }
 
     @Override
     public UserDataSet getUser(String login) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = dbService.getSession()) {
             UserDao userDao = new UserDao(session);
             UserDataSet userDataSet = userDao.get(login);
             return userDataSet;
@@ -30,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public long addUser(UserDataSet userDataSet) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = dbService.getSession()) {
             Transaction transaction = session.beginTransaction();
             UserDao userDao = new UserDao(session);
             long id = userDao.insertUser(userDataSet);

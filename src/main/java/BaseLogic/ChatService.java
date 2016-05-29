@@ -1,4 +1,4 @@
-package BaseLogic;
+package baseLogic;
 
 
 import chat.ChatWebSocket;

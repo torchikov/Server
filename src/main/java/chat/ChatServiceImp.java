@@ -1,7 +1,7 @@
 package chat;
 
 
-import BaseLogic.ChatService;
+import baseLogic.ChatService;
 
 import java.util.Collections;
 import java.util.Set;
