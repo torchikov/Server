@@ -29,13 +29,13 @@ public class Main {
     static final Logger logger = LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws Exception {
-//        if (args.length < 1) {
-//            logger.error("Use port as first argument");
-//            System.exit(1);
-//        }
-//
-//        int port = Integer.parseInt(args[0]);
-        logger.info("Starting at http://127.0.0.1:" + 8080);
+        if (args.length < 1) {
+            logger.error("Use port as first argument");
+            System.exit(1);
+        }
+
+        int port = Integer.parseInt(args[0]);
+        logger.info("Starting at http://127.0.0.1:" + args[0]);
 
         AccountService accountService = new AccountServiceImpl();
 
@@ -59,9 +59,9 @@ public class Main {
         resourceHandler.setResourceBase("public_html");
 
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{resourceHandler, context });
+        handlers.setHandlers(new Handler[]{resourceHandler, context});
 
-        Server server = new Server(8080);
+        Server server = new Server(port);
         server.setHandler(handlers);
 
         System.out.println("Server started");
