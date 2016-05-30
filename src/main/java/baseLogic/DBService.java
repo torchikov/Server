@@ -7,22 +7,23 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-
-import java.util.Properties;
+import resources.DBParametersResource;
 
 public interface DBService {
 
     Session getSession();
 
-    default Configuration getDBConfiguration(String dbName, String login, String password) {
+    DBParametersResource getDBParameters();
+
+    default Configuration getDBConfiguration(DBParametersResource dbParameters) {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(UserDataSet.class);
 
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/" + dbName+ "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-        configuration.setProperty("hibernate.connection.username", login);
-        configuration.setProperty("hibernate.connection.password", password);
+        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/" + dbParameters.getName() + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        configuration.setProperty("hibernate.connection.username", dbParameters.getUser());
+        configuration.setProperty("hibernate.connection.password", dbParameters.getPassword());
         configuration.setProperty("hibernate.show_sql", "true");
         configuration.setProperty("hibernate.hbm2ddl.auto", "update");
         return configuration;

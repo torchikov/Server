@@ -1,0 +1,5 @@
+<class name="resources.DBParametersResource">
+<name>db_test</name>
+<password>tor4ok321</password>
+<user>root</user>
+</class>
