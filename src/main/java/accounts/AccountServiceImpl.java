@@ -28,11 +28,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public UserDataSet getUser(String login) {
-        logger.info("getUser() <====== " + login);
         try (Session session = dbService.getSession()) {
             UserDao userDao = new UserDao(session);
             UserDataSet userDataSet = userDao.get(login);
-            logger.info("getUser() ======> " + userDataSet);
             return userDataSet;
 
         }
@@ -41,29 +39,23 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public long addUser(UserDataSet userDataSet) {
-        logger.info("addUser() <====== " + userDataSet);
         try (Session session = dbService.getSession()) {
             Transaction transaction = session.beginTransaction();
             UserDao userDao = new UserDao(session);
             long id = userDao.insertUser(userDataSet);
             transaction.commit();
-            logger.info("addUser() ======> id:" + id);
             return id;
         }
     }
 
     @Override
     public void addUserSession(String sessionId, UserDataSet user){
-        logger.info("addUserSession() <======");
         sessionToUserProfile.put(sessionId, user);
-        logger.info("addUserSession() ======>");
     }
 
     @Override
     public void removeUserSession(String sessionId){
-        logger.info("removeUserSession() <======");
         sessionToUserProfile.remove(sessionId);
-        logger.info("removeUserSession() ======>");
     }
 
     @Override

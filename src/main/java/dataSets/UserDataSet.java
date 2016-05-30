@@ -55,10 +55,9 @@ public class UserDataSet implements Serializable {
 
     @Override
     public String toString() {
-        return "UserDataSet{" +
+        return "User " +
                 "id=" + id +
-                " login =" + login +
-                "}";
+                " login = " + login;
     }
 
     @Override

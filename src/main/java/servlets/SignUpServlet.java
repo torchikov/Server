@@ -30,13 +30,15 @@ public class SignUpServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        UserDataSet userDataSet = accountService.getUser(login);
-        if (userDataSet != null) {
+        UserDataSet user = accountService.getUser(login);
+        if (user != null) {
             response.setContentType(setContentTypeText());
             response.getWriter().println("<html><body>Пользователь с таким именем существует!</body></html>");
             response.setStatus(HttpServletResponse.SC_OK);
         } else {
-            accountService.addUser(new UserDataSet(login, password));
+            user = new UserDataSet(login, password);
+            accountService.addUser(user);
+            logger.info("Зарегистрировался пользователь " + user);
             response.sendRedirect("/chat.html");
         }
 

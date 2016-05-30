@@ -22,7 +22,6 @@ public class SignInServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("doPost <======");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
@@ -45,12 +44,11 @@ public class SignInServlet extends HttpServlet {
         } else {
             String sessionId = request.getSession().getId();
             accountService.addUserSession(sessionId, userDataSet);
-            logger.info("Пользователь перенаправлен в чат");
+            logger.info("Залогинился пользователь " + userDataSet);
             response.setContentType(setContentTypeText());
             response.sendRedirect("/chat.html");
             response.setStatus(HttpServletResponse.SC_OK);
         }
-        logger.info("doPost ======>");
     }
 
     private String setContentTypeText() {
