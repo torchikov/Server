@@ -2,6 +2,8 @@ package servlets;
 
 import baseLogic.AccountService;
 import dataSets.UserDataSet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SignUpServlet extends HttpServlet {
+    static final Logger logger = LogManager.getLogger(SignUpServlet.class.getName());
+    public static final String PAGE_URL = "/signup";
     private AccountService accountService;
 
     public SignUpServlet(AccountService accountService) {

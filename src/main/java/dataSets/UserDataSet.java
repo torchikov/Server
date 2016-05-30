@@ -60,4 +60,15 @@ public class UserDataSet implements Serializable {
                 " login =" + login +
                 "}";
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        UserDataSet user = (UserDataSet) obj;
+        return this.getLogin().equals(user.getLogin()) && this.getPassword().equals(user.getPassword());
+    }
 }
